@@ -11,7 +11,7 @@ class ReactSimpleRadioButton extends React.Component {
   }
 
   onOptionClick = (item) => {
-    this.props.onChange ? this.onChange(item) : null;
+    this.props.onChange ? this.props.onChange(item) : null;
   }
 
   indexOf = (options, value) => {
@@ -30,7 +30,7 @@ class ReactSimpleRadioButton extends React.Component {
     let self = this
     let props = this.props
     let state = this.state
-    let className = props.className + ' custom_radio_component'
+    let className = `${props.className ? props.className : '' } custom_radio_component`
     let width = props.width + 'px'
     let isLinear = props.isLinear;
     let options = (props.options && Array.isArray(props.options)) ? props.options : [];
@@ -43,7 +43,7 @@ class ReactSimpleRadioButton extends React.Component {
             options.map((item, index)=>{
               return <li key={index} className={'radio_item ' + (isLinear ? 'linear' : '')}>
                 <input type="radio" 
-                  defaultChecked={item == defaultSelected ? true : false} 
+                  defaultChecked={item === defaultSelected} 
                   id={"option_label" + index} 
                   name="selector"/>
                 <label htmlFor={"option_label" + index} onClick={() => this.onOptionClick(item)} className="radio_label">{item}</label>
